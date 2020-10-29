@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:flutter/services.dart';
+
 
 class OTPTextField extends StatefulWidget {
   /// Number of the OTP Fields
@@ -36,16 +38,16 @@ class OTPTextField extends StatefulWidget {
 
   OTPTextField(
       {Key key,
-      this.length = 4,
-      this.width = 10,
-      this.fieldWidth = 30,
-      this.keyboardType = TextInputType.number,
-      this.style = const TextStyle(),
-      this.textFieldAlignment = MainAxisAlignment.spaceBetween,
-      this.obscureText = false,
-      this.fieldStyle = FieldStyle.underline,
-      this.onChanged,
-      this.onCompleted})
+        this.length = 4,
+        this.width = 10,
+        this.fieldWidth = 30,
+        this.keyboardType = TextInputType.number,
+        this.style = const TextStyle(),
+        this.textFieldAlignment = MainAxisAlignment.spaceBetween,
+        this.obscureText = false,
+        this.fieldStyle = FieldStyle.underline,
+        this.onChanged,
+        this.onCompleted})
       : assert(length > 1);
 
   @override
@@ -112,6 +114,9 @@ class _OTPTextFieldState extends State<OTPTextField> {
         style: widget.style,
         focusNode: _focusNodes[i],
         obscureText: widget.obscureText,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ],
         decoration: InputDecoration(
             counterText: "",
             border: widget.fieldStyle == FieldStyle.box
